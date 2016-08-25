@@ -1,0 +1,89 @@
+﻿<Window x:Class="APIDog.RequestPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:APIDog"
+        xmlns:vm="clr-namespace:APIDog.ViewModels"
+        xmlns:convert="clr-namespace:APIDog.Converters"
+        mc:Ignorable="d"
+        Title="RequestPage" Height="700" Width="640" Icon="pack://application:,,,/Resources/dogI.ico" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:RequestViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <ContextMenu x:Key="DefaultHeadersContextMenu">
+            <MenuItem Header="Default headers" Command="{Binding ClickDefaultHeaders}">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/Resources/head.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Cancel" Command="{Binding ClickCancelHeaders}" IsEnabled="{Binding Parameters.First}">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/Resources/cancel.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </Window.Resources>
+    <Grid>
+        <Grid.Resources>
+            <convert:EnumToBooleanConverter x:Key="EnumToBoolConvert" />
+            <convert:EnumToStringConverter x:Key="EnumToStringConvert" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
+            <Label Content="URL"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <TextBox Text="{Binding Request.Url, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" Margin="0,5" />
+            <StackPanel Orientation="Horizontal" Margin="0,5" HorizontalAlignment="Center">
+                <RadioButton Content="Get " IsChecked="{Binding Request.TypeMethod, Converter={StaticResource EnumToBoolConvert}, ConverterParameter=Get }" />
+                <RadioButton Content="Post " IsChecked="{Binding Request.TypeMethod, Converter={StaticResource EnumToBoolConvert}, ConverterParameter=Post }" />
+                <RadioButton Content="Patch " IsChecked="{Binding Request.TypeMethod, Converter={StaticResource EnumToBoolConvert}, ConverterParameter=Patch }" />
+                <RadioButton Content="Delete " IsChecked="{Binding Request.TypeMethod, Converter={StaticResource EnumToBoolConvert}, ConverterParameter=Delete }" />
+                <RadioButton Content="Put " IsChecked="{Binding Request.TypeMethod, Converter={StaticResource EnumToBoolConvert}, ConverterParameter=Put }" />
+            </StackPanel>
+            <Label Content="Http Request Headers"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <ListBox ContextMenu="{StaticResource DefaultHeadersContextMenu}" ItemsSource="{Binding Request.Headers}" HorizontalAlignment="Center" Height="100" Margin="0,5" VerticalAlignment="Top" Width="500">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding RequestHeader, Converter={StaticResource EnumToStringConvert}}" Width="150" Height="23" />
+                            <TextBlock Text="{Binding Value}" Width="350" Height="23" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Label Content="Add Http Request Headers"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <ComboBox x:Name="Headers" SelectedItem="{Binding Request.CurrentHeader, Converter={StaticResource EnumToStringConvert}, Mode=TwoWay}" Width="120" HorizontalAlignment="Left" Margin="5,5" />
+                <TextBox Text="{Binding Request.CurrentHeaderValue}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Margin="5,5" />
+                <Button Command="{Binding ClickAddHeader}" Content="Add" Width="80" Height="23" Margin="5,5" />
+                <Button Command="{Binding ClickUpdateHeader}" Content="Update" Width="80" Height="23" Margin="5,5" />
+                <Button Command="{Binding ClickRemoveHeader}" Content="Remove" Width="80" Height="23" Margin="5,5" />
+            </StackPanel>
+            <Button Command="{Binding ClickEnter}" Content="Enter" Width="80" Height="25" Margin="5,5" IsEnabled="{Binding Request.UriValidate, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <Label Content="Http Response Headers"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <ListBox ItemsSource="{Binding Response.Headers, Mode=TwoWay}" HorizontalAlignment="Center" Height="100" Margin="0,5" VerticalAlignment="Top" Width="500">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding ResponseHeader, Converter={StaticResource EnumToStringConvert}}" Width="150" Height="23" />
+                            <TextBlock Text="{Binding Value}" Width="350" Height="23" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Label Content="Body of Response"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <TextBox Text="{Binding Response.Response}" HorizontalAlignment="Center" Height="100" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" MinLines="99" Margin="0,5" IsReadOnly="True" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Content="Status:"  HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5,5" />
+                <TextBox Text="{Binding Response.StatusCode, Converter={StaticResource EnumToStringConvert}}" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" MaxLines="1" Margin="5,5" IsReadOnly="True" />
+                <Button x:Name="LastButton" Click="ClickClose" Content="Next step" Width="80" Height="23" Margin="5,5" IsEnabled="{Binding Request.IsEntered}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

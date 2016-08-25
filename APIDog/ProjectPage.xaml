@@ -1,0 +1,46 @@
+﻿<Window x:Class="APIDog.ProjectPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:APIDog"
+        xmlns:vm="clr-namespace:APIDog.ViewModels"
+        mc:Ignorable="d"
+        Title="ProjectPage" Height="370" Width="350" Icon="pack://application:,,,/Resources/project.png" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:ProjectViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Model.Items}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Center" Height="310" VerticalAlignment="Center" Width="240">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" Width="220" Height="23" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
+            <Label Content="Items" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <Button Content="Request" Command="{Binding ClickRequest}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
+            <Button Content="Url Model" Command="{Binding ClickUrlModel}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
+            <Button Content="Class Model" Command="{Binding ClickClassModel}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <Label Content="{Binding SelectedItem.Name}"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <Button Content="Create" Command="{Binding ClickCreate}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
+            <Button Content="Remove" Command="{Binding ClickRemove}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
+            <Button Content="Generate" Command="{Binding ClickGenerate}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
+            <CheckBox Grid.Column="0" Grid.Row="2" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <TextBox Text="Open folder after generation" TextAlignment="Center" TextWrapping="Wrap" BorderThickness="0" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,74 @@
+﻿<Window x:Class="APIDog.PropertyPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:APIDog"
+        xmlns:convert="clr-namespace:APIDog.Converters"
+        xmlns:vm="clr-namespace:APIDog.ViewModels"
+        mc:Ignorable="d"
+        Title="PropertyPage" Height="380" Width="450" Icon="pack://application:,,,/Resources/dogI.ico" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:PropertyViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <ContextMenu x:Key="ForAllContextMenu">
+            <MenuItem Header="For each" Command="{Binding ClickForEach}" CommandParameter="{Binding PlacementTarget.Content, RelativeSource={
+                RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/Resources/all.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Cancel" Command="{Binding ClickCancelEach}" CommandParameter="{Binding PlacementTarget.Content, RelativeSource={
+                RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}" IsEnabled="{Binding Parameters.First}">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/Resources/cancel.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <convert:EnumToBooleanConverter x:Key="EnumToBoolConvert" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" ItemsSource="{Binding Model.PropertyList}" SelectedItem="{Binding Property}" HorizontalAlignment="Center" Height="310" Margin="5,5" VerticalAlignment="Top" Width="190">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding PropertyName}" Width="150" Height="23" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <Label Content="Properties"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <Grid Height="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Type" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <ComboBox x:Name="Types" SelectedItem="{Binding Property.Type, Mode=TwoWay}" Grid.Column="1" Grid.Row="0" Width="80" Height="23" />
+                    <CheckBox ContextMenu="{StaticResource ForAllContextMenu}"  IsChecked="{Binding Property.IsNullable, Mode=TwoWay}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="IsNullable" Width="80" VerticalAlignment="Center" />
+                    <CheckBox IsChecked="{Binding Property.IsRewriteName, Mode=TwoWay}" Grid.Column="0" Grid.Row="2" Content="IsRewrite" Width="70" VerticalAlignment="Center" />
+                    <TextBox Text="{Binding Property.RewriteName}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Width="80" TextAlignment="Center" />
+                    <CheckBox ContextMenu="{StaticResource ForAllContextMenu}"  IsChecked="{Binding Property.IsIEnumerable, Mode=TwoWay}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="IsIEnumerable" Width="100" VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Orientation="Vertical">
+                        <Label Content="Code comments" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding Property.CodeComment}" HorizontalAlignment="Center" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" MinLines="99" />
+                    </StackPanel>
+                    <Button x:Name="LastButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="ClickClose" Content="Next step" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,0" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
