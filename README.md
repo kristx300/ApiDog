@@ -9,6 +9,6 @@ Automatic create SDK for API
 - Using Application Resource
 - Different implementations http connections
 # References
-- [Json.Net](http://www.newtonsoft.com/json)
-- [Fody](https://github.com/Fody/Fody)
-- [PropertyChanged](https://github.com/Fody/PropertyChanged)
+* [Json.Net](http://www.newtonsoft.com/json)
+* [Fody](https://github.com/Fody/Fody)
+* [PropertyChanged](https://github.com/Fody/PropertyChanged)
