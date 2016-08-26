@@ -39,8 +39,6 @@
             <Button Content="Create" Command="{Binding ClickCreate}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
             <Button Content="Remove" Command="{Binding ClickRemove}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
             <Button Content="Generate" Command="{Binding ClickGenerate}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5" />
-            <CheckBox Grid.Column="0" Grid.Row="2" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            <TextBox Text="Open folder after generation" TextAlignment="Center" TextWrapping="Wrap" BorderThickness="0" />
         </StackPanel>
     </Grid>
 </Window>

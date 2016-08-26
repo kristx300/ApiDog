@@ -38,10 +38,10 @@ namespace APIDog.Core.Writer
             if (getSet)
                 sb.Append(" { get; set; }");
 
-            if (init)
+            if (init && !string.IsNullOrEmpty(initString))
                 sb.AppendFormat(" {0}", initString);
 
-            if (!init && !getSet)
+            if (!init && (!getSet || string.IsNullOrEmpty(initString)))
                 sb.Append(";");
 
             return sb.ToString();
@@ -149,7 +149,7 @@ namespace APIDog.Core.Writer
         /// </summary>
         /// <param name="classes">Classes</param>
         /// <returns>Found usings</returns>
-        public static IEnumerable<string> GetUsings(IEnumerable<string> classes)
+        public static IEnumerable<string> GetUsings(IEnumerable<string> classes, params string[] addUsings)
         {
             foreach (var item in classes)
             {
@@ -159,7 +159,7 @@ namespace APIDog.Core.Writer
                 if (item.Contains("List"))
                     yield return "System.Collections.Generic;";
 
-                if (item.Contains("HttpClientGenerate"))
+                if (item.Contains("ClientGenerate"))
                     yield return "HttpGenerate";
 
                 if (item.Contains("await"))
@@ -172,6 +172,10 @@ namespace APIDog.Core.Writer
                     yield return "JsonModels";
                 if (item.Contains("Count()"))
                     yield return "System.Linq";
+            }
+            foreach (var item in addUsings)
+            {
+                yield return item;
             }
             yield break;
         }

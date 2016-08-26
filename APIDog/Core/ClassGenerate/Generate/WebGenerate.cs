@@ -20,7 +20,7 @@ namespace APIDog.Core.ClassGenerate.Generate
 
         public string GetFormat(string url)
         {
-            return string.Format("client.Get({0});", url);
+            return string.Format("client.Get(\"{0}\");", url);
         }
 
         public string PostFormat(string url, string data, TypeHttpMethod method)

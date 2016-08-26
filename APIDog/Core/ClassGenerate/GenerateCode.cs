@@ -123,7 +123,7 @@ namespace APIDog.Core.ClassGenerate
                 if (Item.Request.TypeMethod != TypeHttpMethod.Get)
                     preM.BodyLines.Add("        string result = " + HttpClassGenerate.PostFormat(Item.Request.Url.WithoutParams(), string.Join(" + \"&\" +", data), Item.Request.TypeMethod));
                 else
-                    preM.BodyLines.Add("        string result = " + HttpClassGenerate.GetFormat(Item.Request.Url.WithoutParams() + "?" + string.Join(" + \"&\" +", data)));
+                    preM.BodyLines.Add("        string result = " + HttpClassGenerate.GetFormat(Item.Request.Url.WithoutParams() + string.Join(" + \"&\" +", data)));
 
                 preM.BodyLines.Add("        return JsonConvert.DeserializeObject<" + jsonName + ">(result);");
 
@@ -145,7 +145,7 @@ namespace APIDog.Core.ClassGenerate
 
             var toName = new List<string>();
             toName.Add(factory.Generate());
-            string crud = CSharpWriter.CreateNameSpace(toName, CSharpWriter.GetUsings(toName), ProjectInfo.ProjectNamespace + "." + ProjectInfo.CRUDNamespace);
+            string crud = CSharpWriter.CreateNameSpace(toName, CSharpWriter.GetUsings(toName, ProjectInfo.ProjectNamespace + "." + ProjectInfo.ModelNamespace), ProjectInfo.ProjectNamespace + "." + ProjectInfo.CRUDNamespace);
             string models = CSharpWriter.CreateNameSpace(json, CSharpWriter.GetUsings(json), ProjectInfo.ProjectNamespace + "." + ProjectInfo.ModelNamespace);
             File.WriteAllText(ProjectInfo.ProjectPath + @"/" + HttpClassGenerate.GetName() + "Crud.cs", crud);
             File.WriteAllText(ProjectInfo.ProjectPath + @"/" + HttpClassGenerate.GetName() + "Models.cs", models);

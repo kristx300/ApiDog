@@ -42,9 +42,9 @@ namespace APIDog.Core.ClassGenerate.Generate
         public string GetFormat(string url)
         {
             if (Headers)
-                return string.Format("client.Get({0},whc);", url);
+                return string.Format("client.Get(\"{0}\",whc);", url);
             else
-                return string.Format("client.Get({0});", url);
+                return string.Format("client.Get(\"{0}\");", url);
         }
 
         public string PostFormat(string url, string data, TypeHttpMethod method)

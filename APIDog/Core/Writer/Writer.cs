@@ -16,7 +16,7 @@ namespace APIDog.Core.Writer
         /// <param name="types">JType List</param>
         /// <param name="GetSet">Use GetSet in properties</param>
         /// <returns>Model</returns>
-        public static IEnumerable<PreClass> CreateClasses(List<JType> types, bool GetSet = false)
+        public static IEnumerable<PreClass> CreateClasses(List<JType> types, bool GetSet = true)
         {
             foreach (var item in types)
             {
