@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace APIDog.Core.Parser
 {
@@ -11,6 +13,7 @@ namespace APIDog.Core.Parser
         /// Main data of parse
         /// </summary>
         private ParserData _localData = new ParserData();
+        private JType MainType;
 
         /// <summary>
         /// Parse from json
@@ -35,9 +38,9 @@ namespace APIDog.Core.Parser
             {
                 throw new Exception("Sample JSON must be either a JSON array, or a JSON object.");
             }
-            var mainType = JType.Create(examples[0]);
-            mainType.Name = rootName;
-            MakeData(examples, mainType);
+            MainType = JType.Create(examples[0]);
+            MainType.Name = rootName;
+            MakeData(examples, MainType);
             return GetData();
         }
 
@@ -85,10 +88,13 @@ namespace APIDog.Core.Parser
             {
                 foreach (var property in item.Properties())
                 {
-                    var rt = JType.Create(property.Value);
-                    rt.Name = property.Name;
-                    if (!main.SubTypes.Contains(rt))
-                        main.SubTypes.Add(rt);
+                    if (main.SubTypes.SingleOrDefault(x=>x.Name == property.Name) == null)
+                    {
+                        var rt = JType.Create(property.Value);
+                        rt.Name = property.Name;
+                        if (!main.SubTypes.Contains(rt))
+                            main.SubTypes.Add(rt);
+                    }
                 }
             }
             foreach (var item in main.SubTypes)

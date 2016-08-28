@@ -3,6 +3,7 @@ using APIDog.Models;
 using System;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace APIDog.Core
 {
@@ -35,6 +36,10 @@ namespace APIDog.Core
         /// Current request, for abort, if request is not null
         /// </summary>
         private HttpWebRequest Request { get; set; }
+        public Task<ResponseData> RequestAsync(RequestData rd)
+        {
+            return Task.Run(() => MakeRequest(rd));
+        }
 
         /// <summary>
         /// Create request

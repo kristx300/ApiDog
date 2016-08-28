@@ -10,6 +10,6 @@
         <Button Content="Okay" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5" Width="75" Click="Okay_Click"/>
         <Label x:Name="TitleM" Content="Label" HorizontalAlignment="Left" Margin="220,0,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="100,30,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="54" Width="185"/>
-        <Image HorizontalAlignment="Left" Height="90" Margin="10,5,0,0" VerticalAlignment="Top" Width="90" Source="pack://application:,,,/Resources/circle.png" />
+        <Image HorizontalAlignment="Left" Height="73" Margin="13,17,0,0" VerticalAlignment="Top" Width="73" Source="pack://application:,,,/Resources/circle.png" />
     </Grid>
 </Window>

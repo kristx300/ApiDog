@@ -31,7 +31,7 @@ namespace APIDog.Models
                         rd.Headers.Add(new WebResponseHeader { ResponseHeader = hrh, Value = v.Headers[i] });
             }
 
-            var encoding = v.CharacterSet != null ? Encoding.GetEncoding(v.CharacterSet) : Encoding.UTF8;
+            var encoding = !string.IsNullOrEmpty(v.CharacterSet) ? Encoding.GetEncoding(v.CharacterSet) : Encoding.UTF8;
             using (StreamReader reader = new StreamReader(v.GetResponseStream(), encoding))
                 rd.Response = reader.ReadToEnd();
             v.Close();

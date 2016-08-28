@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:APIDog"
         xmlns:vm="clr-namespace:APIDog.ViewModels"
         mc:Ignorable="d"
-        Title="APIDog" Height="350" Width="700" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Resources/dogI.ico">
+        Title="APIDog" Height="360" Width="700" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Resources/dogI.ico">
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>

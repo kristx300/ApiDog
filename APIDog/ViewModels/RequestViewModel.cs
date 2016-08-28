@@ -74,13 +74,13 @@ namespace APIDog.ViewModels
             Parameters.First = true;
         }
 
-        private void Enter()
+        private async void Enter()
         {
             Request.IsEntered = false;
             Browser = CustomBrowser.Create();
             try
             {
-                var locale = Browser.MakeRequest(Request);
+                var locale = await Browser.RequestAsync(Request);
                 Response.Headers = locale.Headers;
                 Response.Response = locale.Response;
                 Response.StatusCode = locale.StatusCode;
