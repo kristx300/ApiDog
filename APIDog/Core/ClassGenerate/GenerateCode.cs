@@ -96,23 +96,28 @@ namespace APIDog.Core.ClassGenerate
                     Name = Item.Name,
                     ReturnObject = jsonName,
                     IsInternal = false,
-                    Params = Item.UrlModel.Generate(),
+                    Params = Item.UrlModel?.Generate(),
                     BodyLines = new List<string>()
                 };
 
                 preM.Name = Regex.Replace(preM.Name, @"[\d-: \/]", string.Empty);
 
-                string[] data = new string[Item.UrlModel.PropertyList.Count];
-
-                for (int i = 0; i < Item.UrlModel.PropertyList.Count; i++)
+                string[] data = new string[0];
+                if (Item.UrlModel != null)
                 {
-                    string ggn = Item.UrlModel.PropertyList[i].GetGenerationName();
+                    data = new string[Item.UrlModel.PropertyList.Count];
 
-                    if (Item.UrlModel.PropertyList[i].IsIEnumerable)
-                        data[i] = "\"" + Item.UrlModel.PropertyList[i].PropertyName + "=\" + " + "string.Joun(',',ggn)";
-                    else
-                        data[i] = "\"" + Item.UrlModel.PropertyList[i].PropertyName + "=\" + " + ggn;
+                    for (int i = 0; i < Item.UrlModel.PropertyList.Count; i++)
+                    {
+                        string ggn = Item.UrlModel.PropertyList[i].GetGenerationName();
+
+                        if (Item.UrlModel.PropertyList[i].IsIEnumerable)
+                            data[i] = "\"" + Item.UrlModel.PropertyList[i].PropertyName + "=\" + " + "string.Joun(',',ggn)";
+                        else
+                            data[i] = "\"" + Item.UrlModel.PropertyList[i].PropertyName + "=\" + " + ggn;
+                    }
                 }
+                
                 if (HttpClassGenerate.GetName() == "WebRequestGenerate")
                 {
                     preM.BodyLines.Add("        var whc = new WebHeaderCollection();");
