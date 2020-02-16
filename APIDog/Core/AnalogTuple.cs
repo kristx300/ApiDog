@@ -1,4 +1,5 @@
 ﻿using PropertyChanged;
+using System.ComponentModel;
 
 namespace APIDog.Core
 {
@@ -17,10 +18,11 @@ namespace APIDog.Core
     /// Support Class with open Setter
     /// </summary>
     /// <typeparam name="T">Main Type</typeparam>
-    [ImplementPropertyChanged]
-    public class AnalogTuple<T>
+    public class AnalogTuple<T> : INotifyPropertyChanged
     {
         public T First { get; set; }
         public T Second { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -1,10 +1,10 @@
 ﻿using APIDog.Core.Writer;
 using PropertyChanged;
+using System.ComponentModel;
 
 namespace APIDog.Models.Pre
 {
-    [ImplementPropertyChanged]
-    public class PreProperty
+    public class PreProperty : INotifyPropertyChanged
     {
         public string TypeName { get; set; }
         public string PropName { get; set; }
@@ -13,6 +13,8 @@ namespace APIDog.Models.Pre
         public bool IsNull { get; set; }
         public bool GetSet { get; set; }
         public bool Init { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Generate()
         {

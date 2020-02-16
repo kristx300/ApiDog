@@ -2,17 +2,19 @@
 using PropertyChanged;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace APIDog.Models.Pre
 {
-    [ImplementPropertyChanged]
-    public class PreClass
+    public class PreClass : INotifyPropertyChanged
     {
         public ObservableCollection<PreProperty> Properties { get; set; }
         internal List<PreMethod> Methods { get; set; }
         public string Name { get; set; }
         public bool IsInternal { get; set; }
         public string ReWrite { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Generate()
         {

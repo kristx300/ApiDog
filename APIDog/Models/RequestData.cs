@@ -2,12 +2,12 @@
 using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Net;
 
 namespace APIDog.Models
 {
-    [ImplementPropertyChanged]
-    public class RequestData
+    public class RequestData : INotifyPropertyChanged
     {
         public TypeHttpMethod TypeMethod { get; set; } = TypeHttpMethod.Get;
         public ObservableCollection<WebRequestHeader> Headers { get; set; } = new ObservableCollection<WebRequestHeader>();
@@ -24,5 +24,7 @@ namespace APIDog.Models
             }
         }
         public bool IsEntered { get; set; } = false;
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

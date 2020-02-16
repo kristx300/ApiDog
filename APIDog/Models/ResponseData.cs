@@ -1,6 +1,7 @@
 ﻿using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,12 +9,13 @@ using System.Text;
 
 namespace APIDog.Models
 {
-    [ImplementPropertyChanged]
-    public class ResponseData
+    public class ResponseData : INotifyPropertyChanged
     {
         public ObservableCollection<WebResponseHeader> Headers { get; set; }
         public HttpStatusCode StatusCode { get; set; }
         public string Response { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public static ResponseData Create(HttpWebResponse v)
         {

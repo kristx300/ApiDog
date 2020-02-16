@@ -1,19 +1,22 @@
 ﻿using PropertyChanged;
+using System.ComponentModel;
 using System.Net;
 
 namespace APIDog.Models
 {
-    [ImplementPropertyChanged]
-    public class WebRequestHeader
+    public class WebRequestHeader : INotifyPropertyChanged
     {
         public HttpRequestHeader RequestHeader { get; set; }
         public string Value { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    [ImplementPropertyChanged]
-    public class WebResponseHeader
+    public class WebResponseHeader : INotifyPropertyChanged
     {
         public HttpResponseHeader ResponseHeader { get; set; }
         public string Value { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
