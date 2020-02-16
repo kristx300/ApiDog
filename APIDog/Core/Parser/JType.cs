@@ -181,8 +181,6 @@ namespace APIDog.Core.Parser
                 case JTypeEnum.Long:
                 case JTypeEnum.Float:
                 case JTypeEnum.Double:
-                    if (second.IsNull)
-                        first.IsNull = true;
                     if (IsRelatedValues(first, second))
                         first.Type = second.Type;
                     return first;

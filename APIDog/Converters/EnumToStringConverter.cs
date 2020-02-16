@@ -13,7 +13,7 @@ namespace APIDog.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (Enum.IsDefined(value.GetType(), value) == false || value == null)
+            if (value == null || Enum.IsDefined(value.GetType(), value) == false)
                 return DependencyProperty.UnsetValue;
 
             return Enum.GetName(value.GetType(), value);

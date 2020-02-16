@@ -18,14 +18,14 @@ namespace APIDog.Extensions
 
         public static string Get(this ObservableCollection<WebRequestHeader> model, HttpRequestHeader type)
         {
-            return model.SingleOrDefault(x => x.RequestHeader == type) == null ?
-                "false" : model.SingleOrDefault(x => x.RequestHeader == type).Value;
+            var header = model.SingleOrDefault(x => x.RequestHeader == type);
+            return header == null ? "false" : header.Value;
         }
 
         public static string Get(this ObservableCollection<WebResponseHeader> model, HttpResponseHeader type)
         {
-            return model.SingleOrDefault(x => x.ResponseHeader == type) == null ?
-                "false" : model.SingleOrDefault(x => x.ResponseHeader == type).Value;
+            var header = model.SingleOrDefault(x => x.ResponseHeader == type);
+            return header == null ? "false" : header.Value;
         }
 
         public static List<WebRequestHeader> Get(this ObservableCollection<WebRequestHeader> model, params HttpRequestHeader[] type)

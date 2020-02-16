@@ -30,7 +30,7 @@ namespace APIDog
 
         private void ClickClose(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(Data.SingleOrDefault(x => x.Name == "ROOTBITCH").ReWrite))
+            if (string.IsNullOrEmpty(Data.SingleOrDefault(x => x.Name == "ROOTBITCH")?.ReWrite))
             {
                 WindowsManager.Message("ApiDog", "Please rename ROOTBITCH object");
             }

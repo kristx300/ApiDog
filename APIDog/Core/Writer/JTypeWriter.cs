@@ -72,6 +72,8 @@ namespace APIDog.Core.Writer
                 case JTypeEnum.Object:
                     initDefault = "= new " + type.Name.FirstToUpper() + "();";
                     break;
+                case JTypeEnum.RandomType:
+                    break;
             }
             return initDefault;
         }

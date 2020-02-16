@@ -86,7 +86,7 @@ namespace APIDog.Core.ClassGenerate
 
             foreach (var Item in ProjectInfo.Items)
             {
-                string jsonName = Item.ListModel.SingleOrDefault(x => x.Name == "ROOTBITCH").GetName();
+                string jsonName = Item.ListModel.SingleOrDefault(x => x.Name == "ROOTBITCH")?.GetName() ?? "empty";
                 foreach (var model in Item.ListModel)
                     json.Add(model.Generate());
 
@@ -102,7 +102,7 @@ namespace APIDog.Core.ClassGenerate
 
                 preM.Name = Regex.Replace(preM.Name, @"[\d-: \/]", string.Empty);
 
-                string[] data = new string[0];
+                string[] data = Array.Empty<string>();
                 if (Item.UrlModel != null)
                 {
                     data = new string[Item.UrlModel.PropertyList.Count];
